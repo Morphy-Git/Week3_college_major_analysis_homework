@@ -1,0 +1,25 @@
+install.packages("devtools")
+ devtools::install_github("jhudsl/collegeIncome")
+ library(collegeIncome)
+ data(college)
+ devtools::install_github("jhudsl/matahari")
+ library(matahari)
+ fitmed_mc=lm(data=college,median~factor(major_category)-1)
+ # to see the leverage/influence of every dp -> there are some outliers but doesn't have much influence on modeling 
+ View(influence(fitmed_mc))
+ View(dfbetas(fitmed_mc))
+ plot(fitmed_mc_ni)
+ # p25th not affected by sex, but by major cat
+ fit25_mc_women=lm(data=college,p25th~perc_women+(factor(major_category)-1))
+ # p75th not affected by sex, but by major cat
+ fit75_mc_women=lm(data=college,p75th~perc_women+(factor(major_category)-1))
+ # median not affected by sex, but by major cat
+ fitmed_mc_women=lm(data=college,median~perc_women+(factor(major_category)-1))
+ # perc_employed is not affected by sex, but by major cat
+ fitemp_mc_women=lm(data=college,perc_employed~(factor(major_category)-1)+perc_women)
+ # perc_college_jobs is not affected by sex, but by major cat
+ fitcoljobs_mc_women=lm(data=college,perc_college_jobs~(factor(major_category)-1)+perc_women)
+ # median not affected by sex, but by major cat
+ fitlow_mc_women=lm(data=college,perc_low_wage_jobs~perc_women+(factor(major_category)-1))
+ # unemployment not affected by sex, but by major cat
+ fitunemp_mc_women=lm(data=college,perc_unemployed~perc_women+(factor(major_category)-1))
